@@ -1,6 +1,6 @@
 package samuel.example.com.yelpchallengeappp.controller.backend;
 
-/*
+
 import org.scribe.builder.api.DefaultApi10a;
 import org.scribe.model.Token;
 
@@ -21,4 +21,3 @@ public class TwoStepOAuth extends DefaultApi10a {
         return null;
     }
 }
-*/

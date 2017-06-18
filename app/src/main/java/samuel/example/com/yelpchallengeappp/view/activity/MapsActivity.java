@@ -24,9 +24,20 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.List;
+
 import samuel.example.com.yelpchallengeappp.R;
+import samuel.example.com.yelpchallengeappp.common.controller.backend.RequestObserver;
+import samuel.example.com.yelpchallengeappp.controller.UserManger;
+import samuel.example.com.yelpchallengeappp.controller.backend.GetAuthClientOperation;
+import samuel.example.com.yelpchallengeappp.controller.backend.GetResturantsOperation;
+import samuel.example.com.yelpchallengeappp.model.Business;
+import samuel.example.com.yelpchallengeappp.model.Coordinate;
+import samuel.example.com.yelpchallengeappp.model.ResturantsResponse;
 
 import static samuel.example.com.yelpchallengeappp.R.id.map;
+import static samuel.example.com.yelpchallengeappp.model.Consts.GET_AUTH_CLIENT_OP;
+import static samuel.example.com.yelpchallengeappp.model.Consts.GET_RESTURANT_OP;
 
 
 public class MapsActivity extends AppCompatActivity implements
@@ -34,7 +45,16 @@ public class MapsActivity extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener,
-        GoogleMap.OnInfoWindowClickListener {
+        GoogleMap.OnInfoWindowClickListener,
+        RequestObserver
+{
+
+
+
+    private GetAuthClientOperation mGetAuthClientOperation;
+    private GetResturantsOperation mGetResturantsOperation;
+    private Coordinate coordinate;
+    List<Business> mBussinesses;
 
     private static final String TAG = MapsActivity.class.getSimpleName();
 
@@ -84,6 +104,9 @@ public class MapsActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        coordinate = new Coordinate(37.7670169511878,-122.42184275);
+        startOperation(GET_AUTH_CLIENT_OP);
+
         if (savedInstanceState != null) {
             mCurrentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
             mCameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
@@ -338,6 +361,42 @@ public class MapsActivity extends AppCompatActivity implements
             mMap.setMyLocationEnabled(false);
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
             mCurrentLocation = null;
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////
+    private void startOperation(String reqId){
+        switch (reqId){
+            case GET_AUTH_CLIENT_OP:
+                mGetAuthClientOperation = new GetAuthClientOperation(UserManger.getInstance().getClient(),
+                        GET_AUTH_CLIENT_OP,true,this);
+                mGetAuthClientOperation.addRequsetObserver(this);
+                mGetAuthClientOperation.execute();
+                break;
+            case GET_RESTURANT_OP:
+                mGetResturantsOperation = new GetResturantsOperation(coordinate,GET_RESTURANT_OP,true,this);
+                mGetResturantsOperation.addRequsetObserver(this);
+                mGetResturantsOperation.execute();
+                break;
+
+        }
+    }
+    @Override
+    public void handleRequestFinished(Object requestId, Throwable error, Object resulObject) {
+        if(requestId.equals(GET_AUTH_CLIENT_OP)){
+            if(error != null){
+
+            } else {
+                startOperation(GET_RESTURANT_OP);
+            }
+        } else if(requestId.equals(GET_RESTURANT_OP)){
+            if(error != null){
+
+            } else {
+                ResturantsResponse resturantsResponse = (ResturantsResponse) resulObject;
+                mBussinesses = resturantsResponse.getBusinesses();
+               // setUpRecylerView();
+            }
         }
     }
 }

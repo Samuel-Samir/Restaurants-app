@@ -79,6 +79,8 @@ public class ResturantsActivity extends BaseActivity implements RequestObserver{
     }
 
 
+
+
     @Override
     public void handleRequestFinished(Object requestId, Throwable error, Object resulObject) {
         if(requestId.equals(GET_AUTH_CLIENT_OP)){
