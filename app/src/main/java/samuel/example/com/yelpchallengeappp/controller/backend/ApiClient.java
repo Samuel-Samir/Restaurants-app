@@ -1,27 +1,33 @@
-package samuel.example.com.yelpchallengeappp;
+package samuel.example.com.yelpchallengeappp.controller.backend;
+
+
+
+
+import samuel.example.com.yelpchallengeappp.common.helper.Logger;
+import samuel.example.com.yelpchallengeappp.common.helper.Utilities;
+import samuel.example.com.yelpchallengeappp.common.view.BaseApplication;
+import samuel.example.com.yelpchallengeappp.controller.UserManger;
+
+
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
+
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 import okio.Buffer;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by samuel on 6/15/2017.
- */
-
-
 public class ApiClient {
 
-
-    public static final String REQUESTS_BASE_URL = "https://api.yelp.com/v3/businesses/search/";
+    public static final String REQUESTS_BASE_URL = "https://api.yelp.com/";
 
     public static String token;
 
@@ -30,7 +36,8 @@ public class ApiClient {
         HashMap<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
         headers.put("Accept", "application/json");
-        if(token != null) headers.put("Authorization", "Bearer " + token);
+        if(UserManger.getInstance().getAuthClient() != null) headers.put("Authorization", "Bearer "
+                + UserManger.getInstance().getAuthClient().getAccessToken());
         return headers;
     }
 

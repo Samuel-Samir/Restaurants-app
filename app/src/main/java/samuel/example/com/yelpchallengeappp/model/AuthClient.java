@@ -1,11 +1,7 @@
-package samuel.example.com.yelpchallengeappp;
+package samuel.example.com.yelpchallengeappp.model;
+
 
 import com.google.gson.annotations.SerializedName;
-
-/**
- * Created by samuel on 6/15/2017.
- */
-
 
 public class AuthClient {
     @SerializedName("access_token")

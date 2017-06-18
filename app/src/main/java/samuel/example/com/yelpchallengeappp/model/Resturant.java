@@ -1,10 +1,7 @@
-package samuel.example.com.yelpchallengeappp;
+package samuel.example.com.yelpchallengeappp.model;
+
 
 import java.util.List;
-
-/**
- * Created by samuel on 6/15/2017.
- */
 
 public class Resturant {
     private List<Business> businesses;

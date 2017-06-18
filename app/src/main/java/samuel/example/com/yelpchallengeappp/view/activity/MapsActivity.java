@@ -1,4 +1,4 @@
-package samuel.example.com.yelpchallengeappp;
+package samuel.example.com.yelpchallengeappp.view.activity;
 
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -25,6 +23,8 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import samuel.example.com.yelpchallengeappp.R;
 
 import static samuel.example.com.yelpchallengeappp.R.id.map;
 

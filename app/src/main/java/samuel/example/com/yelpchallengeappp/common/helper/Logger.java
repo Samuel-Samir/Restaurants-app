@@ -1,13 +1,8 @@
-package samuel.example.com.yelpchallengeappp;
+package samuel.example.com.yelpchallengeappp.common.helper;
 
 import android.util.Log;
 
 import java.io.File;
-
-/**
- * Created by samuel on 6/15/2017.
- */
-
 
 public class Logger {
     static private Logger _instance = null;
@@ -27,7 +22,7 @@ public class Logger {
     }
 
     public void v(String tag, Object msg, boolean writeToFile) {
-        Log.v(tag, msg + "");
+		Log.v(tag, msg + "");
     }
 
 

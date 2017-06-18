@@ -1,12 +1,8 @@
-package samuel.example.com.yelpchallengeappp;
+package samuel.example.com.yelpchallengeappp.common.view;
+
 
 import android.app.Application;
 import android.content.Context;
-
-/**
- * Created by samuel on 6/15/2017.
- */
-
 
 public class BaseApplication extends Application {
     private static Context context = null;
